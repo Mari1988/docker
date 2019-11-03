@@ -1,0 +1,96 @@
+1. Docker Run command is used to run a container from an image
+	 
+2. For example, to run centos do the following,
+	sudo docker run centos
+
+	log: 
+	[sudo] password for mariappan: 
+	Unable to find image 'centos:latest' locally
+	latest: Pulling from library/centos
+	729ec3a6ada3: Pull complete 
+	Digest: sha256:f94c1d992c193b3dc09e297ffd54d8a4f1dc946c37cbeceb26d35ce1647f88d9
+	Status: Downloaded newer image for centos:latest
+
+3. To run a docker container and stay within it (or in another words access the terminal of centos), do the following
+	sudo docker run -it centos
+
+	log:
+	sudo docker run -it centos bash
+	[root@a8a35da15bc0 /]# cat /etc/*release
+	CentOS Linux release 8.0.1905 (Core) 
+	NAME="CentOS Linux"
+	VERSION="8 (Core)"
+	ID="centos"
+	ID_LIKE="rhel fedora"
+	VERSION_ID="8"
+	PLATFORM_ID="platform:el8"
+	PRETTY_NAME="CentOS Linux 8 (Core)"
+	ANSI_COLOR="0;31"
+
+	We could see that, we are in the terminal of centos
+
+4. To exit out of container, simply say 'exit'
+
+5. To list all running docker containers
+	sudo docker ps
+
+6. To list all container (running as well as exited)
+	sudo docker ps -a
+
+7. To run a docker container in a 'detached' mode. So that we can go back to our terminal while docker-container is running in the background.
+	sudo docker -d run centos
+
+8. To stop a running docker container, just say 
+	sudo docker stop '$CONTAINER-ID' or '$CONTAINER-NAME'
+
+	note: container-id or container-name can be fetched from 'docker ps -a' command
+
+9. To remove a docker container from the docker-host, do the following
+	docker rm '$CONTAINER-ID'
+
+	note: 
+	1. we don't have to specify the complete container-id. Just starting few letters so that it's uniquely identified
+	2. to remove multiple container, just specify multiple ids followed by space
+
+	ex:
+	mariappan@INLFM620Z2:~$ sudo docker rm a8 f4 30
+	a8
+	f4
+	30
+
+10. To list the images that are available in docker-host, do the following
+	docker images
+
+	ex:
+	mariappan@INLFM620Z2:~$ sudo docker images
+	REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+	centos              latest              0f3e07c0138f        4 weeks ago         220MB
+
+11. To remove a docker image, do the follwoing. (Note: make sure to remove any container that is using the image that 	is about to be deleted)
+
+	docker rmi 'image-name'
+
+	ex:
+	mariappan@INLFM620Z2:~$ sudo docker rmi centos
+	Untagged: centos:latest
+	Untagged: centos@sha256:f94c1d992c193b3dc09e297ffd54d8a4f1dc946c37cbeceb26d35ce1647f88d9
+	Deleted: sha256:0f3e07c0138fbe05abcb7a9cc7d63d9bd4c980c3f61fea5efa32e7c4217ef4da
+	Deleted: sha256:9e607bb861a7d58bece26dd2c02874beedd6a097c1b6eca5255d5eb0d2236983
+
+12. To pull a docker image (not running it. just saving it locally)
+
+	docker pull image-name
+	eg: docker pull ubuntu
+
+13. To run a command on a running container then 'exec' command can be helpful
+
+	docker exec container-id command
+	ex:
+	mariappan@INLFM620Z2:~$ sudo docker exec 405f7fa3f617 cat /etc/*release
+	NAME="CentOS Linux"
+	VERSION="8 (Core)"
+	ID="centos"
+	ID_LIKE="rhel fedora"
+	VERSION_ID="8"
+	PLATFORM_ID="platform:el8"
+	PRETTY_NAME="CentOS Linux 8 (Core)"

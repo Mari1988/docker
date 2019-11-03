@@ -1,0 +1,14 @@
+1. Go to https://docs.docker.com/install/linux/docker-ce/ubuntu/ to install on Ubuntu. If you are using any other OS, then find the one that is appropriate
+
+2. Un-install older versions using the following command
+	sudo apt-get remove docker docker-engine docker.io containerd runc
+
+3. Run following commands
+	curl -fsSL https://get.docker.com -o get-docker.sh
+	sudo sh get-docker.sh
+
+4. Once installed know the version of docker using (19.03.4 in my case)
+	 sudo docker version
+
+5. Docker hub provides list of popular docker images. To know more,
+	https://hub.docker.com/search?q=&type=image
